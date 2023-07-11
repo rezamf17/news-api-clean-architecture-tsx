@@ -14,25 +14,22 @@ interface NewsItemProps {
 }
 
 const NewsItem: React.FC<NewsItemProps> = ({ news, headers }) => {
-    console.log(headers)
   return (
     <div>
-      {/* <h2>{number}.{news.title}</h2>
-      <p>{news.content}</p> */}
-      <table>
+      <table className='border-collapse border border-slate-400'>
         <thead>
           <tr>
           {headers.map((header) => (
-            <th key={header.key}>{header.label}</th>
+            <th className='border border-slate-300' key={header.key}>{header.label}</th>
           ))}
           </tr>
         </thead>
         <tbody>
           {news.map((items, index) => (
             <tr key={index++}>
-              <td>{index+1}</td>
-              <td>{items.title}</td>
-              <td>{items.content}</td>
+              <td className='border border-slate-300'>{index+1}</td>
+              <td className='border border-slate-300'>{items.title}</td>
+              <td className='border border-slate-300'>{items.content}</td>
             </tr>
           ))}
         </tbody>

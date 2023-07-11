@@ -8,8 +8,8 @@ class NewsService {
     this.newsAPI = new NewsAPI();
   }
 
-  async getAllNews(): Promise<NewsEntity[]> {
-    const news = await this.newsAPI.getAllNews();
+  async getAllNews(q:string, from:string, sortBy:string): Promise<NewsEntity[]> {
+    const news = await this.newsAPI.getAllNews(q, from, sortBy);
     return news.articles.map((article:any) => ({
       title: article.title,
       content: article.content,
