@@ -1,5 +1,6 @@
 import React from 'react';
 import './App.css';
+import './output.css';
 import NewsContainer from './app/containers/NewsContainer';
 
 function App() {
