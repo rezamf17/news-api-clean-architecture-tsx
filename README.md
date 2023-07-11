@@ -1,3 +1,13 @@
+# News Api menggunakan prinsip clean architecture
+pada prinsip ini menjelaskan bahwa terdapat 3 folder utama yaitu app, domains, infrastructure
+1. pada folder app merupakan folder yang digunakan untuk UI, ada 2 folder didalam app yaitu components dan containers
+  A. components merupakan components kecil dari sebuah UI
+  B. containers merupakan parents dari component-component kecil ini
+2. pada folder domains merupakan biasanya adalah sebuah entitas data-data yang akan masuk dari back end, pada folder domain terdapat 2 folder yaitu usecase dan entities
+  A. usecase merupakan folder entities yang nantinya akan dipanggil melalui ui di containers
+  B. entities merupakan data entities yang nantinya dipanggil di folder usecase
+3. pada folder infrastructure biasanya berisi tentang data-data pemanggilan api menggunakan axios, dapat juga di isi oleh config headers
+  A. folder api berisi tentang pemanggilan api menggunakan axios, folder ini nanti akan dipanggil di folder usecase   
 # Getting Started with Create React App
 
 This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
