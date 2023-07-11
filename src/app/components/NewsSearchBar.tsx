@@ -1,6 +1,19 @@
 import React from "react";
+import SearchNewsEntity from '../../domains/entities/SearchNewsEntity';
 
-const NewsSearchBar: React.FC = () => {
+interface resetComponent {
+    reset: (data: SearchNewsEntity) => void;
+}
+const NewsSearchBar: React.FC<resetComponent> = ({reset}) => {
+    const resetToParent = () => {
+        const data:SearchNewsEntity = {
+            search: 'string',
+            date: 'string',
+            sortBy: 'string',
+        }
+        console.log(data)
+        reset(data);
+      };
     return (
         <>
             <div className="box-border h-auto w-auto p-4 border">
@@ -34,7 +47,7 @@ const NewsSearchBar: React.FC = () => {
                     </div>
                 </div>
                 <div className="flex">
-                    <button className="bg-transparent-500 hover:bg-blue-500 text-blue-700 font-semibold hover:text-white py-2 px-4 border border-blue-500 hover:border-transparent rounded">Reset</button>
+                    <button className="bg-transparent-500 hover:bg-blue-500 text-blue-700 font-semibold hover:text-white py-2 px-4 border border-blue-500 hover:border-transparent rounded" onClick={()=>resetToParent()}>Reset</button>
                     <button className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded ml-auto">Search</button>
                 </div>
                 </div>

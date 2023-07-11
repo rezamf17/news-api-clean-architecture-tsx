@@ -4,10 +4,12 @@ import NewsItem from '../components/NewsItems';
 import NewsSearchBar from '../components/NewsSearchBar';
 import NewsEntity from '../../domains/entities/NewsEntity';
 import HeaderNewsEntity from '../../domains/entities/HeaderNewsEntity';
+import SearchNewsEntity from '../../domains/entities/SearchNewsEntity';
 
 const NewsContainer: React.FC = () => {
   const [news, setNews] = useState<NewsEntity[]>([]);
   const [isLoading, setIsLoading] = useState(true);
+  const [resetData, setResetData] = useState<SearchNewsEntity | null>(null);
   useEffect(() => {
     const fetchNews = async () => {
       const newsService = new NewsService();
@@ -18,6 +20,9 @@ const NewsContainer: React.FC = () => {
 
     fetchNews();
   }, []);
+  const handleResetData = (data: SearchNewsEntity) => {
+    setResetData(data);
+  };
   const tableHeaders: HeaderNewsEntity[] = [
     { key: 'no', label: 'No' },
     { key: 'title', label: 'Title' },
@@ -30,7 +35,7 @@ const NewsContainer: React.FC = () => {
     <div>
       <h1>Berita</h1>
       <div className="container">
-        <NewsSearchBar />
+        <NewsSearchBar reset={handleResetData} />
         <NewsItem news={news} headers={tableHeaders} />
       </div>
     </div>
