@@ -9,20 +9,31 @@ import SearchNewsEntity from '../../domains/entities/SearchNewsEntity';
 const NewsContainer: React.FC = () => {
   const [news, setNews] = useState<NewsEntity[]>([]);
   const [isLoading, setIsLoading] = useState(true);
-  const [resetData, setResetData] = useState<SearchNewsEntity | null>(null);
-  useEffect(() => {
-    const fetchNews = async () => {
-      const newsService = new NewsService();
-      const fetchedNews = await newsService.getAllNews('biden', '2023-06-11' , 'publishedAt');
-      setNews(fetchedNews);
-      setIsLoading(false)
-    };
-
-    fetchNews();
-  }, []);
+  const [sortBy, setSortBy] = useState('relevancy');
+  const [date, setDate] = useState('2023-07-12');
+  const [q, setQ] = useState('biden');
+  // const [resetData, setResetData] = useState<SearchNewsEntity>();
   const handleResetData = (data: SearchNewsEntity) => {
-    setResetData(data);
+    // setResetData(data);
+    console.log('reset',data)
   };
+  const handleSearchData = (data: SearchNewsEntity) => {
+    setSortBy(data.sortBy)
+    setDate(data.date)
+    setQ(data.search)
+    console.log(data)
+    // fetchNews()
+  }
+  const fetchNews = async () => {
+    const newsService = new NewsService();
+    const fetchedNews = await newsService.getAllNews(q, date , sortBy);
+    setNews(fetchedNews);
+    setIsLoading(false)
+  };
+  useEffect(() => {
+    fetchNews();
+  }, [sortBy, date, q]);
+
   const tableHeaders: HeaderNewsEntity[] = [
     { key: 'no', label: 'No' },
     { key: 'title', label: 'Title' },
@@ -35,7 +46,7 @@ const NewsContainer: React.FC = () => {
     <div>
       <h1>Berita</h1>
       <div className="container">
-        <NewsSearchBar reset={handleResetData} />
+        <NewsSearchBar reset={handleResetData} search={handleSearchData} />
         <NewsItem news={news} headers={tableHeaders} />
       </div>
     </div>
